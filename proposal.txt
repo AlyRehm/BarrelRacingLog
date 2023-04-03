@@ -1,0 +1,18 @@
+Name: Alyson Rehm
+Stack: MERN
+GitHub Repo link: < Put your GitHub repo link here >
+Project name: Barrel Racing Log
+Project description: An application to track your barrel times/notes for each of your horses. The barrel horse industry could use something like this, as of now our only options are excel spreadsheets or to write it down in booklets. I've yet to see a digital version to keep track of your run information. 
+
+MVP (Minimum Viable Product) features: 
+    Project is on GitHub
+    .gitignore file in root folder 
+    All of CRUD* on a non-User table
+    CSS implemented, and possibly other static content
+    Data is validated upon create and edit, errors show
+
+
+Bonus feature(s): 
+    Application uses a CSS framework such as Bootstrap
+    Login and Registration with validations
+    File Upload (not sure I will have time for this on my first version of this app)
