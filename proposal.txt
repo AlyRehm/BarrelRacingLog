@@ -1,6 +1,6 @@
 Name: Alyson Rehm
 Stack: MERN
-GitHub Repo link: < Put your GitHub repo link here >
+GitHub Repo link: https://github.com/AlyRehm/BarrelRacingLog
 Project name: Barrel Racing Log
 Project description: An application to track your barrel times/notes for each of your horses. The barrel horse industry could use something like this, as of now our only options are excel spreadsheets or to write it down in booklets. I've yet to see a digital version to keep track of your run information. 
 
