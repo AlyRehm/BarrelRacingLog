@@ -1,4 +1,4 @@
-// CRUD METHODS
+// CRUD METHODS FOR BARREL RACE DETAILS
 
 const RunEntry = require("../models/entry.model");
 
@@ -6,7 +6,7 @@ const RunEntry = require("../models/entry.model");
 module.exports.createNewEntry = (req, res) => {
     RunEntry.create(req.body)
         .then((newEntry) => res.json({runEntry: newEntry}))
-        .catch((err) => res.status(400).json({message: "Something went wrong creating the new entry", error:err}));
+        .catch((err) => res.status(400).json({message: "Something went wrong creating the new barrel race log", error:err}));
 }
 
 //GET ALL ENTRIES
@@ -39,6 +39,8 @@ module.exports.updateEntry = (req, res) => {
         .catch(err => res.status(400).json({message:"Something went wrong updating the entry information", error:err}));
 }
 
+
+//DELETE ENTRY
 module.exports.deleteEntry = (req, res) => {
     RunEntry.deleteOne({_id : req.params.id})
         .then((deletedEntry) => {

@@ -1,9 +1,9 @@
 const EntryController = require("../controllers/entry.contoller");
 
 module.exports = app => {
-    app.post("/api/barrelracinglog/newEntry", EntryController.createNewEntry);
-    app.get("/api/barrelracinglog/allEntries", EntryController.findAllEntries);
-    app.get("/api/barrelracinglog/:id", EntryController.findOneEntry);
-    app.put("/api/barrelracinglog/:id", EntryController.updateEntry);
-    app.delete("/api/barrelracinglog/:id", EntryController.deleteEntry);
+    app.post("/api/entries", EntryController.createNewEntry);
+    app.get("/api/entries", EntryController.findAllEntries);
+    app.get("/api/entries/:id", EntryController.findOneEntry);
+    app.put("/api/entries/:id", EntryController.updateEntry);
+    app.delete("/api/entries/:id", EntryController.deleteEntry);
 }

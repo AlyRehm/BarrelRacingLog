@@ -15,6 +15,7 @@ app.use(
 
 
 require('./routes/entry.routes')(app);
+require('./route/horses.routes')(app);
 
 
 app.listen(port, () => console.log(`Listening on port: ${port}`));

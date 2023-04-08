@@ -2,11 +2,6 @@ const mongoose = require ('mongoose');
 
 //LOCATION = ARENA, DATE, TIME, WINNING TIME, NUMBER OF ENTRIES, PLACING, MONEY WON, RUN NOTES
 const EntrySchema = new mongoose.Schema({
-    horseName: {
-        type: String,
-        required: [true, "Horse's name is required"],
-        minLength: [2, "The horse's name needs to be at least 2 characters"]
-    },
     arena: {
         type: String,
         required: [true, "The arena name is required"],
@@ -38,6 +33,10 @@ const EntrySchema = new mongoose.Schema({
     },
     runNotes: {
         type: String
+    },
+    // this is my connection to the horse database
+    horse: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Horse'
     }
 }, {timestamps:true}
 )
