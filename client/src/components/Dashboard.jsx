@@ -1,32 +1,93 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+
+  const [horseName, setHorseName] = useState("");
+  const [errors, setErrors] = useState({});
+  const [allHorses, setAllHorses] = useState([]);
+  const navigate = useNavigate();
+
+  // const {allHorses, setAllHorses} = props;
+
+  useEffect(()=> {
+    axios.get("http://localhost:8000/api/horses")
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setAllHorses(res.data);
+      })
+      .catch((err) => console.log(err))
+  },[]);
+
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    axios.post('http://localhost:8000/api/horses', {
+      horseName,
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setAllHorses([...allHorses, res.data]);
+        setHorseName("");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrors(err.response.data.error.errors);
+      })
+  }
+
+
   return (
     <div>
-        <div class="container">
-            <h2>Welcome --Person Name --</h2>
+        <div className="container">
 
-            <div class="row">
-                <div class="col">
-                {/* list of horses ----hopefully with photos  */}
-                    <p>Your Horses:</p>
-                    <div>
-                    
-
-                    </div>
-
+{/* COLUMN 1 OF 2  - HORSE LIST*/}
+          <div className="row justify-content-around">
+            <div className="col-4">
+              <div className="card">
+                <div className="card-header">
+                  My Horses
                 </div>
-
-
-                <div class="col">
-                {/* this will be a form to add a new horse */}
-                    <p>New Horse</p>
-                    
+                <div className="card-body">
+                  {
+                    allHorses.map((horse, index) => (
+                      <div key={index}>
+                        <Link to={`/horses/${horse._id}`}>{horse.horseName}</Link>
+                      </div>
+                    ))
+                  }
                 </div>
+              </div>
+            </div>
 
-
+{/* COLUMN 2 OF 2  - NEW HORSE FORM*/}
+          <div className="col-4">
+              <div className="card">
+                <div className="card-header">
+                  Add a Horse
+                </div>
+                <div className="card-body">
+                  <form onSubmit={submitHandler}>
+                    {errors.horseName ? <p className="text-danger">{errors.horseName.message}</p> : ""}
+                    <label className="form-label">Horse's Name:</label>
+                    <input 
+                      className="form-control" 
+                      type="text" 
+                      onChange={(e) => setHorseName(e.target.value)}  
+                      value={horseName}
+                      name="horseName"
+                    />
+                    <button>Add</button>
+                  </form>
+                </div>
+              </div>
+          </div>
+    </div>
 
 
         </div>
