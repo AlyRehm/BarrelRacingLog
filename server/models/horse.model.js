@@ -10,7 +10,7 @@ const HorseSchema = new mongoose.Schema({
     // imageUrl: {
     //     type: String,
     // }
-});
+}, {timestamps:true});
 
 const Horse = mongoose.model("Horse", HorseSchema);
 module.exports = Horse;

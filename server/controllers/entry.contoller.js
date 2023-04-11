@@ -48,3 +48,24 @@ module.exports.deleteEntry = (req, res) => {
         })
         .catch(err => res.status(400).json({message: "Something went wrong deleting this entry", error:err}));
 }
+
+
+//GET ALL ENTRY LOGS FOR ONE HORSE
+module.exports.findAllEntriesByHorseId = (req, res) => {
+    const id = req.params.horseId;
+
+    RunEntry.find({ horseId: id })
+        .sort({ dateTime: -1 }) 
+        // .populate({ path: 'horseId', select: ['horseName'] })
+        .then((entries) => {
+        console.log("entries", entries);
+        res.json(entries);
+        })
+        .catch((err) =>
+        res
+            .status(400)
+            .json({
+            message: "Something went wrong finding this horse's entries", error: err})
+        );
+    };
+

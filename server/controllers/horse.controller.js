@@ -47,3 +47,4 @@ module.exports.deleteHorse = (req, res) => {
         })
         .catch(err => res.status(400).json({message: "Something went wrong deleting this horse", error:err}));
 }
+
