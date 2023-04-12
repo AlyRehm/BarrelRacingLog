@@ -7,5 +7,5 @@ module.exports = app => {
     app.get("/api/entries/:id", EntryController.findOneEntry);
     app.put("/api/entries/:id", EntryController.updateEntry);
     app.delete("/api/entries/:id", EntryController.deleteEntry);
-    // app.get("/api/entries/horse/:horseId", EntryController.findAllByHorseId);
+ 
 }
