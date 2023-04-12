@@ -1,9 +1,10 @@
 
 import React, {useState, useEffect}  from 'react';
 import axios from 'axios';
+import { useNavigate, useParams, Link} from 'react-router-dom';
 
 
-const EntryForm = (props) => {
+const EditEntryForm = (props) => {
 
     const [horse, setHorse] = useState([]);
     const [horseId, setHorseId] = useState("");
@@ -17,24 +18,33 @@ const EntryForm = (props) => {
     const [runNotes, setRunNotes] = useState("");
 
     const selectedHorse = horse.find((h) => h._id === horseId);
-    
+
     const [errors, setErrors] = useState({});
 
-    
-    useEffect(() => {
-        axios.get(`http://localhost:8000/api/horses`)
-            .then((res) => {
-                console.log(res);
-                setHorse(res.data);
-            })
-            .catch((err) => console.log(err))
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+        axios.get(`http://localhost:8000/api/entries/${id}`)
+        .then((res) => {
+            console.log(res);
+            // SET HORSE NAME??
+            setArena(res.data.arena);
+            setEventDate(res.data.eventDate);
+            setMoneyWon(res.data.moneyWon);
+            setMyTime(res.data.myTime);
+            setWinningTime(res.data.winningTime);
+            setPlacing(res.data.placing);
+            setNumberOfEntries(res.data.numberOfEntries);
+            setRunNotes(res.data.runNotes);
+        })
+        .catch((err) => console.log(err))
     },[])
 
 
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(horseId);
-        axios.post(`http://localhost:8000/api/entries`, {
+        axios.put(`http://localhost:8000/api/entries/${id}`, {
             horse: {
                 id: selectedHorse._id,
                 horseName: selectedHorse.horseName,
@@ -46,25 +56,17 @@ const EntryForm = (props) => {
             winningTime, 
             placing,
             numberOfEntries,
-            runNotes,
+            runNotes
         })
-            .then((res)=> {
-                console.log(res);
-                console.log(res.data);
-                setHorse("");
-                setArena("");
-                setEventDate("");
-                setMoneyWon("");
-                setMyTime("");
-                setWinningTime("");
-                setPlacing("");
-                setNumberOfEntries("");
-                setRunNotes("");
-            })
-            .catch((err) => {
-                console.log(err);
-                setErrors(err.response.data.error.errors);
-            })
+        .then((res) => {
+            console.log(res);
+            console.log(res.data);
+            navigate("/");
+        })
+        .catch((err) => {
+            console.log(err);
+            setErrors(err.response.data.error.errors);
+        })
     }
 
     return (

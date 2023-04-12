@@ -39,7 +39,7 @@ const EntryDetails = (props) => {
             <div className="card">
                 <div className="card-header">
                     <Link to="">
-                        View all of ---HORSE NAME--- times
+                        View all of {entry.horseId} times
                     </Link>
                     
                 </div>
@@ -59,14 +59,7 @@ const EntryDetails = (props) => {
                         </div>
                     </div>
                 </div> 
-                <div className="card-footer text-muted">
-                    <Link to="/" className="btn btn-primary">Edit Entry</Link>
-                    <Link >
-                        <button className="btn btn-danger">
-                            Delete Entry
-                        </button>
-                    </Link>
-                </div>
+
             </div>
 
 

@@ -14,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Nav/>
-      {/* <EntryForm/> */}
 
 
     <BrowserRouter>
@@ -23,6 +22,7 @@ function App() {
         <Route path="/horses/:id" element={<OneHorse/>} />
         <Route path="/horses/:id/newRaceEntry" element={<RaceEntryForm/>} />
         <Route path="/entries/:id" element={<EntryDetails/>} />
+
 
 
       </Routes>

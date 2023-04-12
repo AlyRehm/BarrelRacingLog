@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link} from 'react-router-dom';
 
+
+
 const BarrelTimes = ({horseId}) => {
 
     const{id} = useParams();
@@ -33,6 +35,7 @@ const BarrelTimes = ({horseId}) => {
     }, [horse._id]);
 
 
+
     return (
         <div className="container">
             <h4>{horse.horseName}'s Times</h4>
@@ -43,6 +46,7 @@ const BarrelTimes = ({horseId}) => {
                         <th>Date</th>
                         <th>Time</th>
                         <th>Winnings</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,12 +64,17 @@ const BarrelTimes = ({horseId}) => {
                             <td>{entry.yourTime.toFixed(3)}</td>
                             {/* Using String interpolation to add the $. Then toFixed() method to round money won to two decimal points. */}
                             <td>${entry.moneyWon.toFixed(2)}</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
                         </tr>
                     )})}
                 </tbody>
             </table>
             <div>
             </div>
+
         </div>
     )
 }
