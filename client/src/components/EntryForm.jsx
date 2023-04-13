@@ -91,7 +91,7 @@ const EntryForm = (props) => {
                                 </select>
                             </div>
                             <div className="col-sm-6">
-                                {errors.arena ? <p className="text-danger">{errors.arena.message}</p> : ""}
+                                
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -100,9 +100,10 @@ const EntryForm = (props) => {
                                     placeholder="Location" 
                                     aria-label="Location"
                                     onChange={(e) => setArena(e.target.value)}/>
+                                {errors.arena ? <p className="text-danger">{errors.arena.message}</p> : ""}    
                             </div>
                             <div className="col-sm">
-                                {errors.eventDate ? <p className="text-danger">{errors.eventDate.message}</p> : ""}
+                                
                                 <input 
                                     type="date" 
                                     className="form-control" 
@@ -111,6 +112,7 @@ const EntryForm = (props) => {
                                     placeholder="Date" 
                                     aria-label="Date"
                                     onChange={(e) => setEventDate(e.target.value)}/>
+                                {errors.eventDate ? <p className="text-danger">{errors.eventDate.message}</p> : ""}    
                             </div>
                             <div className="col-sm">
                                 {errors.moneyWon ? <p className="text-danger">{errors.moneyWon.message}</p> : ""}
@@ -127,7 +129,7 @@ const EntryForm = (props) => {
                         <br/>
                         <div className="row g-3">
                             <div className="col-sm">
-                                {errors.yourTime ? <p className="text-danger">{errors.yourTime.message}</p> : ""}
+                                
                                 <input 
                                     type="number" 
                                     className="form-control" 
@@ -136,6 +138,7 @@ const EntryForm = (props) => {
                                     placeholder="My Time" 
                                     aria-label="My Time"
                                     onChange={(e) => setYourTime(e.target.value)}/>
+                                {errors.yourTime ? <p className="text-danger">{errors.yourTime.message}</p> : ""}    
                             </div>
                             <div className="col-sm">
                                 {errors.winningTime ? <p className="text-danger">{errors.winningTime.message}</p> : ""}

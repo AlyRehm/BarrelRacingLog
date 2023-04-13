@@ -11,7 +11,6 @@ const Dashboard = (props) => {
   const [allHorses, setAllHorses] = useState([]);
   const navigate = useNavigate();
 
-  // const {allHorses, setAllHorses} = props;
 
   useEffect(()=> {
     axios.get("http://localhost:8000/api/horses")
@@ -21,7 +20,8 @@ const Dashboard = (props) => {
         setAllHorses(res.data);
       })
       .catch((err) => console.log(err))
-  },[]);
+  },[allHorses]);
+  // Needed to add 'allHorses' to the dependency array in order for the page to show the new horse that is added 
 
 
   const submitHandler = (e) => {
@@ -42,6 +42,7 @@ const Dashboard = (props) => {
         setErrors(err.response.data.error.errors);
       })
   }
+
 
 
   return (
