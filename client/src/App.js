@@ -10,6 +10,7 @@ import RaceEntryForm from './components/EntryForm';
 import EntryDetails from './components/EntryDetails';
 import EditEntry from './components/EditEntry';
 import BarrelTimes from './components/BarrelTimes';
+import DeleteHorse from './components/DeleteHorse';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/entries/:id" element={<EntryDetails/>} />
         <Route path="/entries/edit/:id" element={<EditEntry/>} />
         <Route path="/horses/:id/entries" element={<BarrelTimes/>}/>
+        <Route path="/horses/delete/:id" element={<DeleteHorse/>}/>
 
 
 

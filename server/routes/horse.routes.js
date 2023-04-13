@@ -5,5 +5,5 @@ module.exports = app => {
     app.get("/api/horses", HorseController.findAllHorses);
     app.get("/api/horses/:id", HorseController.findOneHorse);
     app.put("/api/horses/:id", HorseController.updateHorse);
-    app.delete("/api/horses/:id", HorseController.deleteHorse);
+    app.delete("/api/horses/delete/:id", HorseController.deleteHorse);
 }

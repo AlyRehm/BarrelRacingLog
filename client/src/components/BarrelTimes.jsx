@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link} from 'react-router-dom';
+import DeleteHorse from './DeleteHorse';
 
 
 
@@ -90,7 +91,7 @@ const BarrelTimes = ({horseId}) => {
             </table>
             <div>
             </div>
-
+            <DeleteHorse/>
         </div>
     )
 }
