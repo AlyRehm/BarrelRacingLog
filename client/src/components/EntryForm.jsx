@@ -1,6 +1,7 @@
 
 import React, {useState, useEffect}  from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 
 const EntryForm = (props) => {
@@ -10,15 +11,15 @@ const EntryForm = (props) => {
     const [arena, setArena] = useState("");
     const [eventDate, setEventDate] = useState("");
     const [moneyWon, setMoneyWon] = useState("");
-    const [myTime, setMyTime] = useState("");
+    const [yourTime, setYourTime] = useState("");
     const [winningTime, setWinningTime] = useState("");
     const [placing, setPlacing] = useState("");
     const [numberOfEntries, setNumberOfEntries] = useState("");
     const [runNotes, setRunNotes] = useState("");
 
-    const selectedHorse = horse.find((h) => h._id === horseId);
-    
+
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     
     useEffect(() => {
@@ -35,14 +36,12 @@ const EntryForm = (props) => {
         e.preventDefault();
         console.log(horseId);
         axios.post(`http://localhost:8000/api/entries`, {
-            horse: {
-                id: selectedHorse._id,
-                horseName: selectedHorse.horseName,
-            },
+
+            horseId,
             arena,
             eventDate,
             moneyWon,
-            myTime,
+            yourTime,
             winningTime, 
             placing,
             numberOfEntries,
@@ -51,15 +50,16 @@ const EntryForm = (props) => {
             .then((res)=> {
                 console.log(res);
                 console.log(res.data);
-                setHorse("");
+                setHorseId("");
                 setArena("");
                 setEventDate("");
                 setMoneyWon("");
-                setMyTime("");
+                setYourTime("");
                 setWinningTime("");
                 setPlacing("");
                 setNumberOfEntries("");
                 setRunNotes("");
+                navigate(`/horses/${horseId}/entries`)
             })
             .catch((err) => {
                 console.log(err);
@@ -76,13 +76,14 @@ const EntryForm = (props) => {
                 <div className="card-body">
                     <form onSubmit={submitHandler}>
                         <div className="row g-3">
+                            {/* {horseId} checked to see if the horseId was pulling when a horse name was selected */}
                             <div className="col-sm">
                                 <select 
                                     className="form-select"
                                     name="horse"
                                     onChange={(e) => setHorseId(e.target.value)}>
                                     <option selected>Select Horse</option>
-                                        {horse.map((h) =>(
+                                        {horse?.map((h) =>(
                                             <option key={h._id} value={h._id}>
                                                 {h.horseName}
                                             </option>
@@ -126,15 +127,15 @@ const EntryForm = (props) => {
                         <br/>
                         <div className="row g-3">
                             <div className="col-sm">
-                                {errors.myTime ? <p className="text-danger">{errors.myTime.message}</p> : ""}
+                                {errors.yourTime ? <p className="text-danger">{errors.yourTime.message}</p> : ""}
                                 <input 
                                     type="number" 
                                     className="form-control" 
-                                    value={myTime}
-                                    name="myTime"
+                                    value={yourTime}
+                                    name="yourTime"
                                     placeholder="My Time" 
                                     aria-label="My Time"
-                                    onChange={(e) => setMyTime(e.target.value)}/>
+                                    onChange={(e) => setYourTime(e.target.value)}/>
                             </div>
                             <div className="col-sm">
                                 {errors.winningTime ? <p className="text-danger">{errors.winningTime.message}</p> : ""}

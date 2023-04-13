@@ -18,6 +18,8 @@ const EntryDetails = (props) => {
         runNotes: ''
     });
 
+    const [horse, setHorse] = useState({});
+
     useEffect(() => {
         axios.get(`http://localhost:8000/api/entries/${id}`)
         .then((res) => {
@@ -29,7 +31,6 @@ const EntryDetails = (props) => {
 
 
 
-
     return (
         <div className="container">
             <h4>Run Details</h4>
@@ -38,28 +39,28 @@ const EntryDetails = (props) => {
             
             <div className="card">
                 <div className="card-header">
-                    <Link to="">
-                        View all of {entry.horseId} times
-                    </Link>
+                    <h5 className="card-title">My run at {entry.arena} on {new Date(entry.eventDate).toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: 'numeric'})}</h5>
                     
                 </div>
                 <div className="card-body">
-                    <h5 className="card-title">My run at {entry.arena} on {new Date(entry.eventDate).toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: 'numeric'})}</h5>
-                    <br></br>
                     <div className="row justify-content-center">
                         <div className="col-3">
-                            <p className="card-text"><span className="fw-semibold">My Time:</span> {entry.yourTime.toFixed(3)}</p>
-                            <p className="card-text"><span className="fw-semibold">Winning Time:</span> {entry.winningTime.toFixed(3)}</p>
+                            <p className="card-text"><span className="fw-semibold">My Time:</span> {entry.yourTime}</p>
+                            <p className="card-text"><span className="fw-semibold">Winning Time:</span> {entry.winningTime}</p>
                             <p className="card-text"><span className="fw-semibold">Placing:</span> {entry.placing}</p>
                             <p className="card-text"><span className="fw-semibold">Number of Entries:</span> {entry.numberOfEntries}</p>
-                            <p className="card-text"><span className="fw-semibold">Money won:</span> ${entry.moneyWon.toFixed(2)}</p>                        
+                            <p className="card-text"><span className="fw-semibold">Money won:</span> ${entry.moneyWon}</p>                        
                         </div>
                         <div className="col-5">
                         <p className="card-text"><span className="fw-semibold">Run Notes:</span> {entry.runNotes}</p> 
                         </div>
                     </div>
                 </div> 
-
+                <div class="card-footer">
+                    <Link to={`/horses/${entry.horseId}`}>
+                        Return to view all times
+                    </Link>
+                </div>
             </div>
 
 

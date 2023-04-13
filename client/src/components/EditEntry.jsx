@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate, useParams, Link} from 'react-router-dom';
 
 
-const EditEntryForm = (props) => {
+const EditEntry = (props) => {
 
     const [horse, setHorse] = useState([]);
     const [horseId, setHorseId] = useState("");
@@ -16,6 +16,7 @@ const EditEntryForm = (props) => {
     const [placing, setPlacing] = useState("");
     const [numberOfEntries, setNumberOfEntries] = useState("");
     const [runNotes, setRunNotes] = useState("");
+    const [event, setEvent] = useState({});
 
     const selectedHorse = horse.find((h) => h._id === horseId);
 
@@ -24,10 +25,10 @@ const EditEntryForm = (props) => {
     const navigate = useNavigate();
 
     useEffect(()=> {
-        axios.get(`http://localhost:8000/api/entries/${id}`)
+        axios.get(`http://localhost:8000/api/entries/${event._id}`)
         .then((res) => {
             console.log(res);
-            // SET HORSE NAME??
+            setHorseId (res.data.horseId)
             setArena(res.data.arena);
             setEventDate(res.data.eventDate);
             setMoneyWon(res.data.moneyWon);
@@ -44,7 +45,7 @@ const EditEntryForm = (props) => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(horseId);
-        axios.put(`http://localhost:8000/api/entries/${id}`, {
+        axios.put(`http://localhost:8000/api/entries/${event._id}`, {
             horse: {
                 id: selectedHorse._id,
                 horseName: selectedHorse.horseName,
@@ -195,4 +196,4 @@ const EditEntryForm = (props) => {
     )
 }
 
-export default EntryForm
+export default EditEntry;

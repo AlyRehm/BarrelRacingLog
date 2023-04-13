@@ -9,6 +9,7 @@ const BarrelTimes = ({horseId}) => {
     const{id} = useParams();
     const[horse, setHorse] = useState({});
     const[horseEntries, setHorseEntries] = useState([]);
+    const [entry, setEntry] = useState({});
 
 
     // USEEFFECT FOR HORSE DATA 
@@ -33,6 +34,17 @@ const BarrelTimes = ({horseId}) => {
         })
         .catch((err) => console.log(err))
     }, [horse._id]);
+
+
+    const deleteFilter = (idFromBelow) => {
+        axios.delete(`http://localhost:8000/api/entries/${idFromBelow}`)
+        .then((res) => {
+            const newList = horseEntries.filter((entry) => entry._id !== idFromBelow)
+                setHorseEntries(newList);
+        })
+        .catch((err) => console.log(err.response))
+    }
+
 
 
 
@@ -61,12 +73,16 @@ const BarrelTimes = ({horseId}) => {
                             </td>
                             {/* using JSX to convert the eventDate into <</DD/YYYY format using the en-US locale */}
                             <td>{new Date(entry.eventDate).toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: 'numeric'})}</td>
-                            <td>{entry.yourTime.toFixed(3)}</td>
+                            {/* <td>{entry.yourTime.toFixed(3)}</td> */}
+                            <td>{entry.yourTime}</td>
                             {/* Using String interpolation to add the $. Then toFixed() method to round money won to two decimal points. */}
-                            <td>${entry.moneyWon.toFixed(2)}</td>
+                            {/* <td>${entry.moneyWon.toFixed(2)}</td> */}
+                            <td>${entry.moneyWon}</td>
                             <td>
-                                <button>Edit</button>
-                                <button>Delete</button>
+                                <Link to={`/entries/edit/${entry._id}`}>
+                                    <button>Edit</button>
+                                    </Link>
+                                <button onClick={() => deleteFilter(entry._id)}>Delete</button>
                             </td>
                         </tr>
                     )})}

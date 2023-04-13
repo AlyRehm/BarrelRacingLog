@@ -8,6 +8,8 @@ import Dashboard from './components/Dashboard';
 import OneHorse from './components/BarrelTimes';
 import RaceEntryForm from './components/EntryForm';
 import EntryDetails from './components/EntryDetails';
+import EditEntry from './components/EditEntry';
+import BarrelTimes from './components/BarrelTimes';
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
         <Route path="/horses/:id" element={<OneHorse/>} />
         <Route path="/horses/:id/newRaceEntry" element={<RaceEntryForm/>} />
         <Route path="/entries/:id" element={<EntryDetails/>} />
+        <Route path="/entries/edit/:id" element={<EditEntry/>} />
+        <Route path="/horses/:id/entries" element={<BarrelTimes/>}/>
 
 
 
