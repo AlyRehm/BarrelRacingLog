@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -20,22 +20,21 @@ const Dashboard = (props) => {
         setAllHorses(res.data);
       })
       .catch((err) => console.log(err))
-  },[allHorses]);
-  // Needed to add 'allHorses' to the dependency array in order for the page to show the new horse that is added 
+  },[]);
+  // Needed to add 'allHorses' to the dependency array in order for the page to show the new horse that is added --> Dont do this. inifinit loop runs
 
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    axios.post('http://localhost:8000/api/horses', {
-      horseName,
-    })
+    const newHorse = {horseName}
+    axios.post('http://localhost:8000/api/horses', newHorse)
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        setAllHorses([...allHorses, res.data]);
+        setAllHorses([...allHorses, res.data.horse]);
+        // to get the horse to appear on the pageXOffset, needed to access the horse object from data 
         setHorseName("");
-        navigate("/");
+        // navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -43,6 +42,8 @@ const Dashboard = (props) => {
       })
   }
 
+
+  
 
 
   return (

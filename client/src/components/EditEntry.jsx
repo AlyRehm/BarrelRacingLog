@@ -6,54 +6,62 @@ import { useNavigate, useParams, Link} from 'react-router-dom';
 
 const EditEntry = (props) => {
 
+    const {id} = useParams();
+
     const [horse, setHorse] = useState([]);
     const [horseId, setHorseId] = useState("");
     const [arena, setArena] = useState("");
     const [eventDate, setEventDate] = useState("");
     const [moneyWon, setMoneyWon] = useState("");
-    const [myTime, setMyTime] = useState("");
+    const [yourTime, setYourTime] = useState("");
     const [winningTime, setWinningTime] = useState("");
     const [placing, setPlacing] = useState("");
     const [numberOfEntries, setNumberOfEntries] = useState("");
     const [runNotes, setRunNotes] = useState("");
     const [event, setEvent] = useState({});
 
-    const selectedHorse = horse.find((h) => h._id === horseId);
+    // const selectedHorse = horse.find((h) => h._id === horseId);
 
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
 
     useEffect(()=> {
-        axios.get(`http://localhost:8000/api/entries/${event._id}`)
+        axios.get(`http://localhost:8000/api/entries/${id}`)
         .then((res) => {
             console.log(res);
             setHorseId (res.data.horseId)
             setArena(res.data.arena);
             setEventDate(res.data.eventDate);
             setMoneyWon(res.data.moneyWon);
-            setMyTime(res.data.myTime);
+            setYourTime(res.data.yourTime);
             setWinningTime(res.data.winningTime);
             setPlacing(res.data.placing);
             setNumberOfEntries(res.data.numberOfEntries);
             setRunNotes(res.data.runNotes);
         })
         .catch((err) => console.log(err))
+    },[id])
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/horses`)
+            .then((res) => {
+                console.log(res);
+                setHorse(res.data);
+            })
+            .catch((err) => console.log(err))
     },[])
 
 
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log(horseId);
-        axios.put(`http://localhost:8000/api/entries/${event._id}`, {
-            horse: {
-                id: selectedHorse._id,
-                horseName: selectedHorse.horseName,
-            },
+        // console.log(horseId);
+        axios.put(`http://localhost:8000/api/entries/edit/${id}`, {
+            horseId,
             arena,
             eventDate,
             moneyWon,
-            myTime,
+            yourTime,
             winningTime, 
             placing,
             numberOfEntries,
@@ -62,7 +70,7 @@ const EditEntry = (props) => {
         .then((res) => {
             console.log(res);
             console.log(res.data);
-            navigate("/");
+            navigate(`/horses/${horseId}/entries`);
         })
         .catch((err) => {
             console.log(err);
@@ -74,18 +82,19 @@ const EditEntry = (props) => {
         <div className='container'>
             <div className="card">
                 <div className="card-header">
-                    <h4>Create a New Entry</h4>
+                    <h4>Edit this Entry</h4>
                 </div>
                 <div className="card-body">
                     <form onSubmit={submitHandler}>
                         <div className="row g-3">
                             <div className="col-sm">
+                                {horseId}
                                 <select 
                                     className="form-select"
                                     name="horse"
                                     onChange={(e) => setHorseId(e.target.value)}>
-                                    <option selected>Select Horse</option>
-                                        {horse.map((h) =>(
+                                    <option value="">Select Horse</option>
+                                        {horse?.map((h) =>(
                                             <option key={h._id} value={h._id}>
                                                 {h.horseName}
                                             </option>
@@ -93,7 +102,6 @@ const EditEntry = (props) => {
                                 </select>
                             </div>
                             <div className="col-sm-6">
-                                {errors.arena ? <p className="text-danger">{errors.arena.message}</p> : ""}
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -102,9 +110,10 @@ const EditEntry = (props) => {
                                     placeholder="Location" 
                                     aria-label="Location"
                                     onChange={(e) => setArena(e.target.value)}/>
+                                {errors.arena ? <p className="text-danger">{errors.arena.message}</p> : ""}    
                             </div>
                             <div className="col-sm">
-                                {errors.eventDate ? <p className="text-danger">{errors.eventDate.message}</p> : ""}
+                                {eventDate}
                                 <input 
                                     type="date" 
                                     className="form-control" 
@@ -113,9 +122,10 @@ const EditEntry = (props) => {
                                     placeholder="Date" 
                                     aria-label="Date"
                                     onChange={(e) => setEventDate(e.target.value)}/>
+                                {errors.eventDate ? <p className="text-danger">{errors.eventDate.message}</p> : ""}    
                             </div>
                             <div className="col-sm">
-                                {errors.moneyWon ? <p className="text-danger">{errors.moneyWon.message}</p> : ""}
+
                                 <input 
                                     type="number" 
                                     className="form-control" 
@@ -129,18 +139,17 @@ const EditEntry = (props) => {
                         <br/>
                         <div className="row g-3">
                             <div className="col-sm">
-                                {errors.myTime ? <p className="text-danger">{errors.myTime.message}</p> : ""}
                                 <input 
                                     type="number" 
                                     className="form-control" 
-                                    value={myTime}
-                                    name="myTime"
+                                    value={yourTime}
+                                    name="yourTime"
                                     placeholder="My Time" 
                                     aria-label="My Time"
-                                    onChange={(e) => setMyTime(e.target.value)}/>
+                                    onChange={(e) => setYourTime(e.target.value)}/>
+                                {errors.yourTime ? <p className="text-danger">{errors.yourTime.message}</p> : ""}    
                             </div>
                             <div className="col-sm">
-                                {errors.winningTime ? <p className="text-danger">{errors.winningTime.message}</p> : ""}
                                 <input 
                                     type="number" 
                                     className="form-control" 
@@ -149,9 +158,9 @@ const EditEntry = (props) => {
                                     placeholder="Winning Time" 
                                     aria-label="Winning Time"
                                     onChange={(e) => setWinningTime(e.target.value)}/>
+                                {errors.winningTime ? <p className="text-danger">{errors.winningTime.message}</p> : ""}    
                             </div>
                             <div className="col-sm">
-                                {errors.placing ? <p className="text-danger">{errors.placing.message}</p> : ""}
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -162,7 +171,6 @@ const EditEntry = (props) => {
                                     onChange={(e) => setPlacing(e.target.value)}/>
                             </div>
                             <div className="col-sm">
-                                {errors.numberOfEntries ? <p className="text-danger">{errors.numberOfEntries.message}</p> : ""}
                                 <input 
                                     type="number" 
                                     className="form-control" 
@@ -175,7 +183,6 @@ const EditEntry = (props) => {
                         </div>
                         <br/>
                         <div className="row g-3">
-                            {errors.runNotes ? <p className="text-danger">{errors.runNotes.message}</p> : ""}
                             <div className="col">
                                 <input 
                                     type="textarea"  
@@ -189,6 +196,9 @@ const EditEntry = (props) => {
                         </div>
                         <br/>
                         <button>Submit</button>
+                        <Link to={`/horses/${horse.id}`}>
+                            <button>Cancel</button>
+                        </Link>
                     </form>
                 </div>
             </div>    
