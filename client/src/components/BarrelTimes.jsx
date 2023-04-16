@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link} from 'react-router-dom';
 import DeleteHorse from './DeleteHorse';
+import EntryForm from './EntryForm'
 
 import '../assets/styles/style.css';
 
@@ -51,7 +52,7 @@ const BarrelTimes = ({horseId}) => {
 
     return (
         <div className="container">
-        <div className="bg-light text-dark opacity-75 m-5 p-4"> 
+        <div className="bg-light text-dark opacity-75 my-5 p-4 rounded"> 
             <h4>{horse.horseName}'s Times</h4>
             <table className="table table-light ">
                 
@@ -94,6 +95,9 @@ const BarrelTimes = ({horseId}) => {
             <div>
             </div>
             <DeleteHorse/>
+            </div>
+            <div>
+                <EntryForm/>
             </div>
         </div>
     )
