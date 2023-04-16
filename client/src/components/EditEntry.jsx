@@ -18,9 +18,7 @@ const EditEntry = (props) => {
     const [placing, setPlacing] = useState("");
     const [numberOfEntries, setNumberOfEntries] = useState("");
     const [runNotes, setRunNotes] = useState("");
-    const [event, setEvent] = useState({});
-
-    // const selectedHorse = horse.find((h) => h._id === horseId);
+    // const [event, setEvent] = useState({});
 
     const [errors, setErrors] = useState({});
 
@@ -80,125 +78,138 @@ const EditEntry = (props) => {
 
     return (
         <div className='container'>
-            <div className="card">
+            <div className="card bg-light bg-opacity-75">
                 <div className="card-header">
                     <h4>Edit this Entry</h4>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={submitHandler}>
+                <form onSubmit={submitHandler}>
                         <div className="row g-3">
-                            <div className="col-sm">
-                                {horseId}
-                                <select 
-                                    className="form-select"
-                                    name="horse"
-                                    onChange={(e) => setHorseId(e.target.value)}>
-                                    <option value="">Select Horse</option>
-                                        {horse?.map((h) =>(
-                                            <option key={h._id} value={h._id}>
-                                                {h.horseName}
-                                            </option>
-                                        ))}
+                            {/* {horseId} checked to see if the horseId was pulling when a horse name was selected */}
+                            <div className="col-sm form-floating">
+                            <select 
+                                className="form-select"
+                                name="horse"
+                                id="floatingInput"
+                                value={horseId}
+                                onChange={(e) => setHorseId(e.target.value)}>
+                                <option>Select Horse</option>
+                                    {horse.map((h) => (
+                                        <option key={h._id} value={h._id} selected={h._id === horseId}>
+                                        {h.horseName}
+                                        </option>
+                                    ))}
                                 </select>
+                                <label for="floatingInput">Horse's Name</label>
                             </div>
-                            <div className="col-sm-6">
+                            <div className="col-sm-6 form-floating">
+                                
                                 <input 
                                     type="text" 
                                     className="form-control" 
+                                    id="floatingInput"
                                     value={arena}
                                     name="arena"
                                     placeholder="Location" 
                                     aria-label="Location"
                                     onChange={(e) => setArena(e.target.value)}/>
+                                <label for="floatingInput">Location</label>
                                 {errors.arena ? <p className="text-danger">{errors.arena.message}</p> : ""}    
                             </div>
-                            <div className="col-sm">
-                                {eventDate}
+                            <div className="col-sm form-floating">
                                 <input 
                                     type="date" 
                                     className="form-control" 
+                                    id="floatingInput"
                                     value={eventDate}
                                     name="eventDate"
                                     placeholder="Date" 
                                     aria-label="Date"
                                     onChange={(e) => setEventDate(e.target.value)}/>
+                                <label for="floatingInput">Event Date</label>
                                 {errors.eventDate ? <p className="text-danger">{errors.eventDate.message}</p> : ""}    
                             </div>
-                            <div className="col-sm">
-
+                            <div className="col-sm form-floating">
+                                {errors.moneyWon ? <p className="text-danger">{errors.moneyWon.message}</p> : ""}
                                 <input 
                                     type="number" 
-                                    className="form-control" 
+                                    className="form-control"
+                                    id="floatingInput"
                                     value={moneyWon}
                                     name="moneyWon"
                                     placeholder="Money Won" 
                                     aria-label="Money Won"
                                     onChange={(e) => setMoneyWon(e.target.value)}/>
+                                <label for="floatingInput">Money Won</label>
                             </div>
                         </div>
                         <br/>
                         <div className="row g-3">
-                            <div className="col-sm">
+                            <div className="col-sm form-floating">
                                 <input 
                                     type="number" 
                                     className="form-control" 
+                                    id="floatingInput"
                                     value={yourTime}
                                     name="yourTime"
                                     placeholder="My Time" 
                                     aria-label="My Time"
                                     onChange={(e) => setYourTime(e.target.value)}/>
+                                <label for="floatingInput">My Time</label>
                                 {errors.yourTime ? <p className="text-danger">{errors.yourTime.message}</p> : ""}    
                             </div>
-                            <div className="col-sm">
+                            <div className="col-sm form-floating">
                                 <input 
                                     type="number" 
-                                    className="form-control" 
+                                    className="form-control"
+                                    id="floatingInput" 
                                     value={winningTime}
                                     name="winningTime"
                                     placeholder="Winning Time" 
                                     aria-label="Winning Time"
                                     onChange={(e) => setWinningTime(e.target.value)}/>
-                                {errors.winningTime ? <p className="text-danger">{errors.winningTime.message}</p> : ""}    
+                                <label for="floatingInput">Winning Time</label>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-sm form-floating">
                                 <input 
                                     type="text" 
                                     className="form-control" 
+                                    id="floatingInput"
                                     value={placing}
                                     name="placing"
                                     placeholder="Placing" 
                                     aria-label="Placing"
                                     onChange={(e) => setPlacing(e.target.value)}/>
+                                <label for="floatingInput">Placing</label>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-sm form-floating">
                                 <input 
                                     type="number" 
                                     className="form-control" 
+                                    id="floatingInput"
                                     value={numberOfEntries}
                                     name="numberOfEntries"
                                     placeholder="Number of Entries" 
                                     aria-label="Number of Entries"
                                     onChange={(e) => setNumberOfEntries(e.target.value)}/>
+                                <label for="floatingInput">Number of Entries</label>
                             </div>
                         </div>
                         <br/>
                         <div className="row g-3">
-                            <div className="col">
-                                <input 
-                                    type="textarea"  
+                            <div className="col form-floating">
+                                <textarea 
                                     className="form-control" 
                                     value={runNotes}
                                     name="runNotes"
                                     placeholder="Run Notes" 
-                                    aria-label="run notes" 
-                                    onChange={(e) => setRunNotes(e.target.value)}/>
+                                    onChange={(e) => setRunNotes(e.target.value)}
+                                    />
+                                <label for="floatingInput">Run Notes</label>
                             </div>
                         </div>
                         <br/>
-                        <button>Submit</button>
-                        <Link to={`/horses/${horse.id}`}>
-                            <button>Cancel</button>
-                        </Link>
+                        <button className="btn-custom-color">Submit</button>
                     </form>
                 </div>
             </div>    

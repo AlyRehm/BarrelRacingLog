@@ -12,10 +12,19 @@ import EditEntry from './components/EditEntry';
 import BarrelTimes from './components/BarrelTimes';
 import DeleteHorse from './components/DeleteHorse';
 
+import backgroundImg from './assets/images/backgroundImg.JPG'
+
 
 function App() {
   return (
-    <div className="App">
+    <div className="App"
+    style={{
+      backgroundImage: `url(${backgroundImg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      height: '100vh' // Set the height to 100% of the viewport height
+    }}>
       <Nav/>
 
 

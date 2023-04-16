@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, Link} from 'react-router-dom';
 import DeleteHorse from './DeleteHorse';
 
-
+import '../assets/styles/style.css';
 
 const BarrelTimes = ({horseId}) => {
 
@@ -51,8 +51,10 @@ const BarrelTimes = ({horseId}) => {
 
     return (
         <div className="container">
+        <div className="bg-light text-dark opacity-75 m-5 p-4"> 
             <h4>{horse.horseName}'s Times</h4>
-            <table className="table table-hover">
+            <table className="table table-light ">
+                
                 <thead>
                     <tr>
                         <th>Location</th>
@@ -62,7 +64,7 @@ const BarrelTimes = ({horseId}) => {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="fw-medium">
                     {/* .sort compares the eventDate of each entry. By subtracting 'new Date'(a) from new Date (b) it returns a positive number if b is greater than a, which sorts the array in descending order */}
                 {horseEntries.sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate)).map((entry)=> {
                     return (
@@ -81,9 +83,9 @@ const BarrelTimes = ({horseId}) => {
                             <td>${entry.moneyWon}</td>
                             <td>
                                 <Link to={`/entries/edit/${entry._id}`}>
-                                    <button>Edit</button>
+                                    <button className="btn-custom-color mx-2">Edit</button>
                                     </Link>
-                                <button onClick={() => deleteFilter(entry._id)}>Delete</button>
+                                <button onClick={() => deleteFilter(entry._id)} className="btn-custom-color-delete">Delete</button>
                             </td>
                         </tr>
                     )})}
@@ -92,6 +94,7 @@ const BarrelTimes = ({horseId}) => {
             <div>
             </div>
             <DeleteHorse/>
+            </div>
         </div>
     )
 }

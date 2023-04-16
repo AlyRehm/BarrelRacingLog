@@ -1,0 +1,17 @@
+.btn-custom-color {
+    background-color: #625697;
+    border-color: #625697;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.btn-custom-color-delete {
+    background-color: rgb(220,53,69);
+    border-color: rgb(220,53,69);
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+a {
+    color:#473960
+}

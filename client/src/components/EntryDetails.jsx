@@ -33,11 +33,8 @@ const EntryDetails = (props) => {
 
     return (
         <div className="container">
-            <h4>Run Details</h4>
-
-
             
-            <div className="card">
+            <div className="card bg-light bg-opacity-75 m-5">
                 <div className="card-header">
                     <h5 className="card-title">My run at {entry.arena} on {new Date(entry.eventDate).toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: 'numeric'})}</h5>
                     
@@ -56,7 +53,7 @@ const EntryDetails = (props) => {
                         </div>
                     </div>
                 </div> 
-                <div class="card-footer">
+                <div class="card-footer fw-bold">
                     <Link to={`/horses/${entry.horseId}`}>
                         Return to view all times
                     </Link>
