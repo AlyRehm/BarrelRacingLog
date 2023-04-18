@@ -5,7 +5,7 @@ const EntrySchema = new mongoose.Schema({
     // this is my connection to the horse database
     horseId: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Horse',
-        // required: [true, "Your horse's name is required"],
+        required: [true, "Your horse's name is required"],
     },
     arena: {
         type: String,
@@ -38,8 +38,8 @@ const EntrySchema = new mongoose.Schema({
         type: String
     },
 
-}, {timestamps:true}
-)
+}, {timestamps:true});
+
 
 const RunEntry = mongoose.model("RunEntry", EntrySchema);
 module.exports = RunEntry;

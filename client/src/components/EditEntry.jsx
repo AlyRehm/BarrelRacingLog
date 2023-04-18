@@ -11,7 +11,7 @@ const EditEntry = (props) => {
     const [horse, setHorse] = useState([]);
     const [horseId, setHorseId] = useState("");
     const [arena, setArena] = useState("");
-    const [eventDate, setEventDate] = useState("");
+    const [eventDate, setEventDate] = useState(new Date());
     const [moneyWon, setMoneyWon] = useState("");
     const [yourTime, setYourTime] = useState("");
     const [winningTime, setWinningTime] = useState("");
@@ -30,7 +30,14 @@ const EditEntry = (props) => {
             console.log(res);
             setHorseId (res.data.horseId)
             setArena(res.data.arena);
-            setEventDate(res.data.eventDate);
+
+            // const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
+            // const formattedDate = eventDate.toLocaleString('en-US', options);
+            const isoDate = eventDate.toISOString().substr(0, 10);
+            document.getElementById("eventDate").value=isoDate
+            setEventDate(isoDate)
+            
+
             setMoneyWon(res.data.moneyWon);
             setYourTime(res.data.yourTime);
             setWinningTime(res.data.winningTime);
@@ -78,7 +85,7 @@ const EditEntry = (props) => {
 
     return (
         <div className='container'>
-            <div className="card bg-light bg-opacity-75">
+            <div className="card bg-light bg-opacity-75 mt-5">
                 <div className="card-header">
                     <h4>Edit this Entry</h4>
                 </div>
@@ -117,10 +124,11 @@ const EditEntry = (props) => {
                                 {errors.arena ? <p className="text-danger">{errors.arena.message}</p> : ""}    
                             </div>
                             <div className="col-sm form-floating">
+
                                 <input 
                                     type="date" 
                                     className="form-control" 
-                                    id="floatingInput"
+                                    id="eventDate"
                                     value={eventDate}
                                     name="eventDate"
                                     placeholder="Date" 
